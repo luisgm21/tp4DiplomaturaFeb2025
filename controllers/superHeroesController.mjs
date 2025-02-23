@@ -1,5 +1,5 @@
 import SuperHeroe from "../models/superHeroe.mjs";
-import { obtenerSuperHeroeporId,buscarSuperHeroesPorAtributo,obtenerSuperHeroesMayoresDe30,obtenerTodosLosSuperHeroes,guardarSuperHeroe } from "../services/superHeroeService.mjs";
+import { obtenerSuperHeroeporId,buscarSuperHeroesPorAtributo,obtenerSuperHeroesMayoresDe30,obtenerTodosLosSuperHeroes,guardarSuperHeroe, modificarSuperHeroe, eliminarSuperHeroe } from "../services/superHeroeService.mjs";
 import { renderizarListaSuperHeroes, renderizarSuperHeroe } from "../views/responseView.mjs";
 
 export function obtenerTodosLosSuperHeroesController(req, res){
@@ -40,9 +40,8 @@ export function obtenerSuperHeroesMayoresDe30Controller(req, res){
 }
 
 export function guardarSuperHeroeController(req, res){
-    const {nombreSuperheroe, nombreReal, nombreSociedad, edad, planetaOrigen , debilidad, poder ,habilidadEspecial,aliado, enemigo} = req.body;
-    const superHeroe = new SuperHeroe(nombreSuperheroe, nombreReal, nombreSociedad, edad, planetaOrigen, debilidad, poder, habilidadEspecial, aliado, enemigo);
-    superHeroe.id = obtenerTodosLosSuperHeroes().length + 1;
+    const {nombreSuperheroe, nombreReal, nombreSociedad, edad, planetaOrigen , debilidad, poder ,habilidadEspecial,aliado, enemigo} = req.body
+    const superHeroe = new SuperHeroe(obtenerTodosLosSuperHeroes().length + 1,nombreSuperheroe, nombreReal, nombreSociedad, edad, planetaOrigen, debilidad, poder, habilidadEspecial, aliado, enemigo);
     guardarSuperHeroe(superHeroe);
     res.send({ mensaje: 'Superheroe guardado' });
 }
@@ -61,7 +60,7 @@ export function eliminarSuperHeroeController(req, res){
 
 export function modificarSuperHeroeController(req, res){
     const id = req.params.id;
-    const query = req.query;
+    const query = req.body;
     const superHeroe = obtenerSuperHeroeporId(parseInt(id));
     
     if (!superHeroe) {

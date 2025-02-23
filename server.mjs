@@ -4,6 +4,8 @@ import { obtenerSuperHeroePorIdController,buscarSuperHeroesPorAtributoController
 const app = express();
 const PORT = 3005;
 
+app.use(express.json());
+
 // Rutas
 // Obtener un superhéroe por ID
 // Ejemplo: GET /superheroes/id/1

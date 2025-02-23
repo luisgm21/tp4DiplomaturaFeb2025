@@ -65,9 +65,9 @@ export default class SuperHeroeRepository extends SuperHeroeDataSource{
 
             const superHeroesAux = superHeroes.filter(superHeroe => superHeroe.id !== id);
             
-            const superHeroesActualizado = superHeroesAux.push(superHeroeModificado);
+            superHeroesAux.push(superHeroeModificado);
 
-            const superHeroesActualizadoOrdenado = sortHeroesById(superHeroesActualizado);
+            const superHeroesActualizadoOrdenado = sortHeroesById(superHeroesAux);
 
             this.guardar(superHeroesActualizadoOrdenado);
 
